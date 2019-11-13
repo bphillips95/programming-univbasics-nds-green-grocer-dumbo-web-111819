@@ -11,24 +11,24 @@ require 'pry'
 end
  
  
- 
- 
- 
- 
 def consolidate_cart(cart)
-  output = {}
-  cart.each do |item|
-    item_name = item.keys[0]
-    if output[item_name]
-      output[item_name][:count] += 1 
-    else
-      output[item_name] = item[item_name]
-      output[item_name][:count] = 1 
-    
-  end
-  output
-end
+  i = 0
+  result = []
 
+  while i < cart.count do
+    item_name = cart[i][:item]
+    sought_item = find_item_by_name_in_collection(item_name, result)
+    if sought_item
+      sought_item[:count] += 1
+    else
+      cart[i][:count] = 1
+      result << cart[i]
+    end
+    i += 1
+  end
+
+  result
+end
 # if cart[index]item already exists (.unique?) add item 
 # else push onto array
 
